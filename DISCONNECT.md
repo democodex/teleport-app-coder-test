@@ -1,0 +1,3 @@
+# Stream Resilience
+
+Streams should be treated as unreliable by default: network hiccups, idle timeouts, server restarts, and client sleep/wake cycles will all interrupt a connection at some point. A resilient stream handles disconnects gracefully rather than treating them as fatal errors — it detects the drop quickly, backs off with jittered retries to avoid thundering-herd reconnects, and resumes from the last acknowledged position (using a cursor, sequence number, or offset) so no data is lost or duplicated. Combined with heartbeats to catch silent failures and idempotent processing on the receiving end, this lets consumers survive transient outages transparently and keep the data flowing without manual intervention.
